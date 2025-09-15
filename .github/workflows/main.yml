@@ -1,0 +1,30 @@
+name: Run Bun project
+
+on:
+  schedule:
+    - cron: "0 14 * * 0,3"  # JP: 05:00
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run script with API token
+        env:
+          GEMINI_API: ${{ secrets.GEMINI_API }}
+          QIITA_API: ${{ secrets.QIITA_API }}
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+        run: bun run start
