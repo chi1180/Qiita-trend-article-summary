@@ -6,8 +6,8 @@ export class QiitaTrendScraper {
   private baseUrl = "https://qiita.com";
   private qiita: Qiita;
 
-  constructor(qiita_access_token: string) {
-    this.qiita = new Qiita(qiita_access_token);
+  constructor(qiita: Qiita) {
+    this.qiita = qiita;
   }
 
   async scrapeTrendArticles() {
@@ -16,8 +16,8 @@ export class QiitaTrendScraper {
     const response = await fetch(this.baseUrl);
     const html = await response.text();
     const $ = cheerio.load(html);
-    const articles = $(".style-2vm86z");
-    for (const article of articles) {
+    const articlesHtml = $(".style-2vm86z");
+    for (const article of articlesHtml) {
       const article_data: article = {
         title: $(article).text(),
         url: $(article).attr("href"),
@@ -30,6 +30,8 @@ export class QiitaTrendScraper {
       ARTICLES.push(article_data);
     }
 
-    this.qiita.fetchTrendArticles(ARTICLES);
+    /* Getting article properties */
+    const articles = await this.qiita.fetchTrendArticles(ARTICLES);
+    return articles;
   }
 }

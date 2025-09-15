@@ -4,8 +4,11 @@ interface article {
   url?: string;
   author?: string;
   tags?: string[];
-  likesCount?: string;
-  publishedAt?: string;
+  likes?: number;
+  stocks?: number;
+  comments?: number;
+  postedAt?: string;
+  updatedAt?: string;
   body?: string;
   summary?: string;
 }
