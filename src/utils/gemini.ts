@@ -17,7 +17,7 @@ export class Gemini {
     let articleCount = 0;
     for (const article of articles) {
       console.log(
-        `[--INFO--] Generating summary of article (${articleCount++}/${articles.length})...`,
+        `[--INFO--] Generating summary of article (${++articleCount}/${articles.length})...`,
       );
 
       if (!article.body) throw new Error("Article body is missing");
