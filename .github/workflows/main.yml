@@ -2,7 +2,7 @@ name: Run Bun project
 
 on:
   schedule:
-    - cron: "0 14 * * 0,3"  # JP: 05:00
+    - cron: "0 20 * * 6,2"  # In JP: 05:00 sun&wed
   workflow_dispatch:
 
 jobs:
